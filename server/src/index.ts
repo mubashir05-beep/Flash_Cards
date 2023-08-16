@@ -4,22 +4,22 @@ import DeckModel from "./models/Deck";
 
 const app = express();
 
-const PORT = 5000;
+const PORT = 9000;
+
+app.use(express.json());
 
 app.get("/hello",  (req: Request, res: Response) => {
   res.send("hello world");
 });
 
-app.post('/decks',async (res:Response,req:Request)=>{
-    const newDeck=new DeckModel({
-        title:"Hello first Post!",
+app.post('/decks', async  (req: Request, res: Response) => {
+  console.log(req.body)
+    const newDeck = new DeckModel({
+        title: req.body.title,
     });
     const createdDeck = await newDeck.save();
     res.json(createdDeck);
-})
-
-
-
+});
 
 mongoose
   .connect(
@@ -29,19 +29,3 @@ mongoose
     console.log(`Listening on port ${PORT}`);
     app.listen(PORT);
   });
-
-//   async function startServer() {
-//     try {
-//       await mongoose.connect(  "mongodb+srv://flashcard:mubmud@cluster0.gvjjzlx.mongodb.net/?retryWrites=true&w=majority");
-
-//       console.log(`Connected to MongoDB`);
-//       app.listen(PORT, () => {
-//         console.log(`Listening on port ${PORT}`);
-//       });
-//     } catch (error) {
-//       console.error("Error connecting to MongoDB:", error);
-//     }
-//   }
-
-//   // Call the async function to start the server
-//   startServer();
