@@ -15,7 +15,6 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.post("/decks", async (req: Request, res: Response) => {
-  console.log(req.body);
   const newDeck = new DeckModel({
     title: req.body.title
   });
@@ -23,6 +22,10 @@ app.post("/decks", async (req: Request, res: Response) => {
   res.json(createdDeck);
 });
 
+app.get("/decks", async (req: Request, res: Response) => {
+    const fetchedDeck=await DeckModel.find();
+    res.json(fetchedDeck)
+})
 mongoose.connect(process.env.MONGO_URL!).then(() => {
   console.log(`Listening on port ${PORT}`);
   app.listen(PORT);
