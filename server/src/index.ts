@@ -10,9 +10,13 @@ const PORT = 9000;
 app.use(express.json());
 app.use(cors())
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("hello world");
-});
+
+app.delete("/decks/:deckid",async(req: Request, res: Response)=>{
+
+  const deckId=req.params.deckid;
+  const deck= await DeckModel.findByIdAndDelete(deckId);
+  res.json(deck);
+})
 
 app.post("/decks", async (req: Request, res: Response) => {
   const newDeck = new DeckModel({

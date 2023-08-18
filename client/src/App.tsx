@@ -7,6 +7,10 @@ interface FetchedData {
   __v: number;
 }
 
+import { Link } from "react-router-dom";
+import { createDeck } from "./api/createDeck";
+import { fetchData } from "./api/fetchDeck";
+import { deleteDecks } from "./api/deleteDeck";
 function App() {
   const [title, setTitle] = useState("");
   const [data, setData] = useState<FetchedData[]>([]);
@@ -16,30 +20,18 @@ function App() {
   const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
     setTitle(e.currentTarget.value);
   };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       setIsSending(true);
-      const response = await fetch("http://localhost:9000/decks", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: title,
-        }),
-      });
+
+      await createDeck(title);
 
       setTitle("");
       setIsSending(false);
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
       // Fetch data again to update the list with the newly created deck
-      fetchData();
+      fetchDataAndUpdateState();
     } catch (error) {
       console.error("Error:", error);
       setIsSending(false);
@@ -47,33 +39,58 @@ function App() {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchDataAndUpdateState();
   }, []);
 
-  const fetchData = async () => {
+ const fetchDataAndUpdateState = async () => {
+  try {
+    setIsLoading(true);
+
+    const fetchedData = await fetchData(); // Call the fetchData function
+
+    setData(fetchedData); // Update the state with fetched data
+    setIsLoading(false);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    setIsLoading(false);
+  }
+};
+
+
+  const deleteDeck = async (deckID: string) => {
     try {
-      setIsLoading(true);
-      const response = await fetch("http://localhost:9000/decks");
-      const resData: FetchedData[] = await response.json();
-      setData(resData);
-      setIsLoading(false);
+      deleteDecks(deckID)
+      // Update the data state by removing the deleted deck
+      setData((prevData) => prevData.filter((item) => item._id !== deckID));
     } catch (error) {
-      console.error("Error fetching data:", error);
-      setIsLoading(false);
+      console.error("Error deleting deck:", error);
     }
   };
 
   return (
     <div className="app-container">
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul>
-          {data.map((item) => (
-            <li key={item._id}>{item.title}</li>
-          ))}
-        </ul>
-      )}
+      <h1 className="title">Deck Manager</h1>
+      <div className="card-container">
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          data.map((item) => (
+            <div key={item._id} className="card">
+              <h3>
+                <Link to={`decks/${item._id}`}>{item.title}</Link>
+              </h3>
+              <div
+                onClick={() => {
+                  deleteDeck(item._id);
+                }}
+                className="button"
+              >
+                Delete
+              </div>
+            </div>
+          ))
+        )}
+      </div>
       <form onSubmit={handleSubmit} className="form">
         <input
           type="text"
@@ -81,6 +98,7 @@ function App() {
           value={title}
           className="input"
           placeholder="Enter title"
+          required
         />
         <button type="submit" className="button" disabled={isSending}>
           {isSending ? "Creating..." : "Create Deck"}
