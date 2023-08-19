@@ -15,7 +15,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
-  origin: ['https://flash-cards-app-tau.vercel.app/'], // This should be a string or an array of allowed origins
+  origin: ['https://flash-cards-app-tau.vercel.app/','https://flash-cards-api-eight.vercel.app/'], // This should be a string or an array of allowed origins
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Specify the allowed HTTP methods
   credentials: true, // Allow credentials (cookies, HTTP authentication)
 }));
