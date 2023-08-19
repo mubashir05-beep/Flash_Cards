@@ -9,8 +9,6 @@ import { deleteDeckCard } from "./controllers/deleteDeckCard";
 import { config } from "dotenv";
 import cors from "cors";
 
-
-
 config();
 
 const app = express();
