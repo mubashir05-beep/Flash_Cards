@@ -1,9 +1,9 @@
 import { API_URL } from "./config";
 
-API_URL
-export const deleteDecks=async(deckID: string)=>{
+
+export const deleteDecks=async(decksid: string)=>{
     try {
-        const response = await fetch(`${API_URL}/decks/${deckID}`, {
+        const response = await fetch(`${API_URL}/decks/${decksid}`, {
           method: "DELETE",
         });
             return response

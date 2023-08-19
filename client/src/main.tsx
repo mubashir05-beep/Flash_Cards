@@ -7,7 +7,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import Decks from './components/Decks.tsx'
+import Decks from './Deck.tsx'
 
 const router = createBrowserRouter([
   {

@@ -42,26 +42,24 @@ function App() {
     fetchDataAndUpdateState();
   }, []);
 
- const fetchDataAndUpdateState = async () => {
-  try {
-    setIsLoading(true);
-
-    const fetchedData = await fetchData(); // Call the fetchData function
-
-    setData(fetchedData); // Update the state with fetched data
-    setIsLoading(false);
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    setIsLoading(false);
-  }
-};
-
-
-  const deleteDeck = async (deckID: string) => {
+  const fetchDataAndUpdateState = async () => {
     try {
-      deleteDecks(deckID)
+      setIsLoading(true);
+
+      const fetchedData = await fetchData(); // Call the fetchData function
+
+      setData(fetchedData); // Update the state with fetched data
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setIsLoading(false);
+    }
+  };
+  const deleteDeck = async (decksid: string) => {
+    try {
+      deleteDecks(decksid);
       // Update the data state by removing the deleted deck
-      setData((prevData) => prevData.filter((item) => item._id !== deckID));
+      setData((prevData) => prevData.filter((item) => item._id !== decksid));
     } catch (error) {
       console.error("Error deleting deck:", error);
     }
