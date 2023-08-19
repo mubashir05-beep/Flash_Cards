@@ -14,8 +14,9 @@ config();
 const app = express();
 
 app.use(express.json());
-
-app.use(cors());
+app.use(cors({
+  origin: '*', // This should be a string or an array of allowed origins
+}));
 
 const PORT = 9000;
 app.get("/", (req, res) => {
