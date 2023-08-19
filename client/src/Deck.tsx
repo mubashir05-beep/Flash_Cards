@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+
 import { useParams } from "react-router-dom";
 import { createCard } from "./api/createCard";
 
@@ -30,7 +30,7 @@ function Deck() {
     e.preventDefault();
     try {
       setIsSending(true);
-
+      setIsLoading(true)
       await createCard(decksid!, text);
       // Fetch deck cards after creating a new card
       fetchDeckCards();
