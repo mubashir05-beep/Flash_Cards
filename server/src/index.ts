@@ -18,6 +18,9 @@ app.use(express.json());
 app.use(cors());
 
 const PORT = 9000;
+app.get("/", (req, res) => {
+  res.send("hello");
+});
 
 app.delete("/decks/:decksid", deleteDeckController);
 
