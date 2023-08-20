@@ -5,13 +5,16 @@
         "src": "client/**",
         "use": "@vercel/static",
         "config": {
-          "buildCommand": "npm install && npm run build",
-          "outputDirectory": "client/dist"
+          "zeroConfig": true
         }
       },
       {
-        "src": "server/**",
-        "use": "@vercel/node"
+        "src": "server/**/*.ts",
+        "use": "@vercel/node",
+        "config": {
+          "includeFiles": ["src/**/*.ts"],
+          "tsconfigPath": "./server/tsconfig.json"
+        }
       }
     ],
     "routes": [
@@ -21,7 +24,7 @@
       },
       {
         "src": "/(.*)",
-        "dest": "/client/dist/:1"
+        "dest": "/client/:1"
       }
     ]
   }
