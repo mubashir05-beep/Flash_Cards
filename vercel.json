@@ -1,31 +1,19 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "client/**",
-        "use": "@vercel/static",
-        "config": {
-          "zeroConfig": true
+    "buildCommand": "cd client && npm install && npm run build",
+    "outputDirectory": "client/dist",
+    "framework": "vite",
+    "rewrites": [
+        {
+            "source": "/api/(.*)",
+            "destination": "/server/src/controllers/:1"
+        },
+        {
+            "source": "/server/src/(.*)",
+            "destination": "/server/src/index.ts"
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/client/:1"
         }
-      },
-      {
-        "src": "server/**/*.ts",
-        "use": "@vercel/node",
-        "config": {
-          "includeFiles": ["src/**/*.ts"],
-          "tsconfigPath": "./server/tsconfig.json"
-        }
-      }
-    ],
-    "routes": [
-      {
-        "src": "/api/(.*)",
-        "dest": "/server/src/controllers/:1"
-      },
-      {
-        "src": "/(.*)",
-        "dest": "/client/:1"
-      }
     ]
-  }
-  
+}
