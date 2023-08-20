@@ -1,1 +1,1 @@
-export const API_URL = import.meta.env.VITE_API_URL ?? "https://flash-cards-backend-pi.vercel.app";
+export const API_URL = import.meta.env.VITE_API_URL ?? "https://flash-cards-three.vercel.app/";
