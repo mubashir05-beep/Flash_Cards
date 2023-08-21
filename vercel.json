@@ -7,5 +7,19 @@
             "source": "/server/(.*)",
             "destination": "/server/index.ts"
         }
-    ]
+    ],
+    "version": 2,
+  "builds": [
+    {
+      "src": "/server/index.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      
+      "src": "/(.*)",
+      "dest": "/server/index.ts"
+    }
+  ]
 }

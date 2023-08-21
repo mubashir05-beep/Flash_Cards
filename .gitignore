@@ -8,6 +8,7 @@ server/src/.env
 # Ignore the .git directory itself
 .git
 
+.env
 # Ignore OS generated files
 .DS_Store
 Thumbs.db
