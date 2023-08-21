@@ -1,11 +1,11 @@
 import express from "express";
 import mongoose from "mongoose";
-import { createDeckController } from "./controllers/createDeckController";
-import { deleteDeckController } from "./controllers/deleteDeckController";
-import { fetchDeckController } from "./controllers/fetchDeckController";
-import { createDeckCardController } from "./controllers/createDeckCardController";
-import { fetchDeckCardController } from "./controllers/fetchDeckCardController";
-import { deleteDeckCard } from "./controllers/deleteDeckCard";
+import { createDeckController } from "./src/controllers/createDeckController";
+import { deleteDeckController } from "./src/controllers/deleteDeckController";
+import { fetchDeckController } from "./src/controllers/fetchDeckController";
+import { createDeckCardController } from "./src/controllers/createDeckCardController";
+import { fetchDeckCardController } from "./src/controllers/fetchDeckCardController";
+import { deleteDeckCard } from "./src/controllers/deleteDeckCard";
 import { config } from "dotenv";
 import cors from "cors";
 
