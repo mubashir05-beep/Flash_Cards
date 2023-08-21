@@ -45,10 +45,7 @@ Thumbs.db
 *.njsproj
 *.sln
 
-# Ignore build output
-build/
-dist/
-out/
+
 
 # Ignore log files
 *.log
