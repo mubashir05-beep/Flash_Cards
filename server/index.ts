@@ -40,12 +40,22 @@ app.get("/api/hello/", (req, res) => {
   });
 });
 
-mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URL!).then(() => {
-  console.log(`Listening on port ${process.env.NEXT_PUBLIC_PORT}`);
-  if (process.env.NEXT_PUBLIC_PORT) {
-    app.listen(process.env.NEXT_PUBLIC_PORT);
-  }
+const mongoUrl = process.env.NEXT_PUBLIC_MONGO_URL!;
+const port = process.env.NEXT_PUBLIC_PORT || 4000;
+
+mongoose.connect(mongoUrl).then(() => {
+  console.log(`Connected to MongoDB`);
 });
 
+app.get("/", (req, res) => {
+  res.send("Hey this is my API running 🥳");
+});
+
+// Export the Express API
+module.exports = app;
+
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});
 // Export the Express API
 module.exports = app
