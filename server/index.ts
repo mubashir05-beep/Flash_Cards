@@ -48,10 +48,10 @@ const port = process.env.NEXT_PUBLIC_PORT || 4000;
 
 mongoose.connect(mongoUrl).then(() => {
   console.log(`Connected to MongoDB`);
-  if(port){
-  app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
-  });}
+  // if(port){
+  // app.listen(port, () => {
+  //   console.log(`Listening on port ${port}`);
+  // });}
 });
 
 app.get("/", (req, res) => {
