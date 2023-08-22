@@ -40,7 +40,7 @@ app.get("/api/hello/", (req, res) => {
   });
 });
 
-const mongoUrl = process.env.NEXT_PUBLIC_MONGO_URL!;
+const mongoUrl = process.env.MONGODB_URI!;
 const port = process.env.NEXT_PUBLIC_PORT || 4000;
 
 mongoose.connect(mongoUrl).then(() => {
