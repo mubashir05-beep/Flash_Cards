@@ -16,23 +16,26 @@ const app = express();
 
 app.use(express.json());
 
-// app.use(cors());
-
+app.use(cors({
+  origin: "http://localhost:5173/",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true, 
+}));
 app.get("/", (req, res) => {
   res.json("hello");
 });
 
-// app.delete("/decks/:decksid", deleteDeckController);
+app.delete("/decks/:decksid", deleteDeckController);
 
-// app.post("/decks", createDeckController);
+app.post("/decks", createDeckController);
 
-// app.get("/decks", fetchDeckController);
+app.get("/decks", fetchDeckController);
 
-// app.post("/decks/:decksid/cards", createDeckCardController);
+app.post("/decks/:decksid/cards", createDeckCardController);
 
-// app.get("/decks/:decksid", fetchDeckCardController);
+app.get("/decks/:decksid", fetchDeckCardController);
 
-// app.delete("/decks/:decksid/cards/:index", deleteDeckCard);
+app.delete("/decks/:decksid/cards/:index", deleteDeckCard);
 
 app.get("/api/hello/", (req, res) => {
   res.json({
@@ -40,11 +43,15 @@ app.get("/api/hello/", (req, res) => {
   });
 });
 
-const mongoUrl = process.env.MONGODB_URI!;
+const mongoUrl = process.env.NEXT_PUBLIC_MONGODB_URI!;
 const port = process.env.NEXT_PUBLIC_PORT || 4000;
 
 mongoose.connect(mongoUrl).then(() => {
   console.log(`Connected to MongoDB`);
+  if(port){
+  app.listen(port, () => {
+    console.log(`Listening on port ${port}`);
+  });}
 });
 
 app.get("/", (req, res) => {
@@ -54,8 +61,6 @@ app.get("/", (req, res) => {
 // Export the Express API
 module.exports = app;
 
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
-});
+
 // Export the Express API
 module.exports = app
