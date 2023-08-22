@@ -40,19 +40,19 @@ app.get("/api/hello/", (req, res) => {
   });
 });
 
-// mongoose.connect(process.env.MONGO_URL!).then(() => {
-//   console.log(`Listening on port ${process.env.PORT}`);
-//   if (process.env.PORT) {
-//     app.listen(process.env.PORT);
-//   }
-// });
+mongoose.connect(process.env.MONGO_URL!).then(() => {
+  console.log(`Listening on port ${process.env.PORT}`);
+  if (process.env.PORT) {
+    app.listen(process.env.PORT);
+  }
+});
 
 module.exports = app
 
 
 
-app.listen(PORT, () => {
-  console.log(`API listening on PORT ${PORT} `)
+app.listen(process.env.PORT, () => {
+  console.log(`API listening on PORT ${process.env.PORT} `)
 })
 
 app.get('/', (req, res) => {
