@@ -21,17 +21,17 @@ app.get("/", (req, res) => {
   res.json("hello");
 });
 
-app.delete("/decks/:decksid", deleteDeckController);
+// app.delete("/decks/:decksid", deleteDeckController);
 
-app.post("/decks", createDeckController);
+// app.post("/decks", createDeckController);
 
-app.get("/decks", fetchDeckController);
+// app.get("/decks", fetchDeckController);
 
-app.post("/decks/:decksid/cards", createDeckCardController);
+// app.post("/decks/:decksid/cards", createDeckCardController);
 
-app.get("/decks/:decksid", fetchDeckCardController);
+// app.get("/decks/:decksid", fetchDeckCardController);
 
-app.delete("/decks/:decksid/cards/:index", deleteDeckCard);
+// app.delete("/decks/:decksid/cards/:index", deleteDeckCard);
 
 app.get("/api/hello/", (req, res) => {
   res.json({
