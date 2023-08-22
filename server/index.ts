@@ -9,7 +9,7 @@ import { deleteDeckCard } from "./src/controllers/deleteDeckCard";
 import { config } from "dotenv";
 import cors from "cors";
 
-const PORT = 4000;
+const PORT = 4000
 config();
 
 const app = express();
@@ -18,21 +18,25 @@ app.use(express.json());
 
 app.use(cors());
 
-app.delete("/decks/:decksid", deleteDeckController);
+app.get("/", (req, res) => {
+  res.json("hello");
+});
 
-app.post("/decks", createDeckController);
+// app.delete("/decks/:decksid", deleteDeckController);
 
-app.get("/decks", fetchDeckController);
+// app.post("/decks", createDeckController);
 
-app.post("/decks/:decksid/cards", createDeckCardController);
+// app.get("/decks", fetchDeckController);
 
-app.get("/decks/:decksid", fetchDeckCardController);
+// app.post("/decks/:decksid/cards", createDeckCardController);
 
-app.delete("/decks/:decksid/cards/:index", deleteDeckCard);
+// app.get("/decks/:decksid", fetchDeckCardController);
+
+// app.delete("/decks/:decksid/cards/:index", deleteDeckCard);
 
 app.get("/api/hello/", (req, res) => {
   res.json({
-    message: "Hello World",
+      message: "Hello World"
   });
 });
 
@@ -43,9 +47,5 @@ mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URL!).then(() => {
   }
 });
 
-app.get("/", (req, res) => {
-  res.send("Hey this is my API running 🥳");
-});
-
 // Export the Express API
-module.exports = app;
+module.exports = app
