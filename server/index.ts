@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
 
 // app.post("/decks", createDeckController);
 
-app.get("/decks", fetchDeckController);
+// app.get("/decks", fetchDeckController);
 
 // app.post("/decks/:decksid/cards", createDeckCardController);
 
@@ -40,12 +40,12 @@ app.get("/api/hello/", (req, res) => {
   });
 });
 
-const mongoUrl = process.env.NEXT_PUBLIC_MONGO_URL!;
+// const mongoUrl = process.env.NEXT_PUBLIC_MONGO_URL!;
 const port = process.env.NEXT_PUBLIC_PORT || 4000;
 
-mongoose.connect(mongoUrl).then(() => {
-  console.log(`Connected to MongoDB`);
-});
+// mongoose.connect(mongoUrl).then(() => {
+//   console.log(`Connected to MongoDB`);
+// });
 
 app.get("/", (req, res) => {
   res.send("Hey this is my API running 🥳");
