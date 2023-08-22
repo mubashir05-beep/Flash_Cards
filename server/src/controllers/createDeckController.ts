@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { ParamsDictionary } from "express-serve-static-core";
 import DeckModel from "../models/Deck";
 
 export const createDeckController = async (req: Request<any, any, { title: string }>, res: Response<any>) => {
