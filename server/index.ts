@@ -18,9 +18,9 @@ const app = express();
 
 app.use(express.json());
 
-app.use(cors())
-
-
+app.use(cors({
+  origin: '*'
+}));
 
 app.get("/api/hello/", (req, res) => {
   res.json({
