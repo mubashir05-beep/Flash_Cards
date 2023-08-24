@@ -20,18 +20,15 @@ function App() {
   const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
     setTitle(e.currentTarget.value);
   };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       setIsSending(true);
-
       await createDeck(title);
-
-      setTitle("");
+      await setTitle("");
       setIsSending(false);
-
-      // Fetch data again to update the list with the newly created deck
-      fetchDataAndUpdateState();
+      fetchDataAndUpdateState()
     } catch (error) {
       console.error("Error:", error);
       setIsSending(false);
@@ -40,31 +37,28 @@ function App() {
 
   useEffect(() => {
     fetchDataAndUpdateState();
-  }, []);
+  },[] );
 
   const fetchDataAndUpdateState = async () => {
     try {
       setIsLoading(true);
-
-      const fetchedData = await fetchData(); // Call the fetchData function
-
-      setData(fetchedData); // Update the state with fetched data
+      const fetchedData = await fetchData();
+      await setData(fetchedData);
       setIsLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
       setIsLoading(false);
     }
   };
+
   const deleteDeck = async (decksid: string) => {
     try {
       deleteDecks(decksid);
-      // Update the data state by removing the deleted deck
       setData((prevData) => prevData.filter((item) => item._id !== decksid));
     } catch (error) {
       console.error("Error deleting deck:", error);
     }
   };
-
   return (
     <div className="app-container">
       <h1 className="title">Deck Manager</h1>
