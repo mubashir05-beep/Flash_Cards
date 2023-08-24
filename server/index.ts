@@ -20,7 +20,7 @@ app.use(express.json());
 
 // app.use(cors({*}))
 
-const allowedOrigins = ["http://localhost:5173/"];
+const allowedOrigins = ["https://flash-cards-phi.vercel.app/"];
 app.use(cors({
   origin: allowedOrigins
 }))
