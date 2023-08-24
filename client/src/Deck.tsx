@@ -30,13 +30,14 @@ function Deck() {
     e.preventDefault();
     try {
       setIsSending(true);
-      setIsLoading(true)
       await createCard(decksid!, text);
       // Fetch deck cards after creating a new card
-      fetchDeckCards();
-
       setText("");
+      
+
+      
       setIsSending(false);
+      await fetchDeckCards();
     } catch (error) {
       console.error("Error:", error);
       setIsSending(false);
@@ -44,15 +45,17 @@ function Deck() {
   };
 
   const fetchDeckCards = async () => {
+    setIsLoading(true);
     const data = await getData(decksid!);
-    setDecks([data]);
-    setCards(data.cards); // Set the cards state to the fetched cards array
+    setIsLoading(false);
+    await setDecks([data]);
+   await setCards(data.cards); // Set the cards state to the fetched cards array
   };
 
   const handleDeleteCard = async (index: number) => {
     if (!decksid) return;
     const newDeck = await deleteCard(decksid, index);
-    setCards(newDeck.cards);
+    await setCards(newDeck.cards);
   };
 
   useEffect(() => {
