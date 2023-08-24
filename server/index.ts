@@ -1,7 +1,7 @@
 import express from "express";
 import { config } from "dotenv";
 import cors from "cors";
-import { connectToDatabase, db } from "./src/DB"; // Import the db and connectToDatabase
+import { connectToDatabase, db } from "./src/DB";
 
 import { createDeckController } from "./src/controllers/createDeckController";
 import { deleteDeckController } from "./src/controllers/deleteDeckController";
@@ -19,35 +19,39 @@ app.use(express.json());
 const corsOptions = {
   origin: "*", // Update with your allowed origins
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true
+  credentials: true,
 };
 app.use(cors(corsOptions));
 
-
-
-app.delete("/decks/:decksid", deleteDeckController);
-app.post("/decks", createDeckController);
-app.get("/decks", fetchDeckController);
-app.post("/decks/:decksid/cards", createDeckCardController);
-app.get("/decks/:decksid", fetchDeckCardController);
-app.delete("/decks/:decksid/cards/:index", deleteDeckCard);
-
 app.get("/api/hello/", (req, res) => {
   res.json({
-    message: "Hello World"
+    message: "Hello World",
   });
 });
 
 const port = process.env.NEXT_PUBLIC_PORT || 4000;
 
 (async () => {
-  await connectToDatabase(); // Connect to MongoDB
+  try {
+    await connectToDatabase();
+    console.log("Connected to the database");
 
-  app.get("/", (req, res) => {
-    res.send("Hey this is my API running 🥳");
-  });
+    // Set up routes after successful database connection
+    app.delete("/decks/:decksid", deleteDeckController);
+    app.post("/decks", createDeckController);
+    app.get("/decks", fetchDeckController);
+    app.post("/decks/:decksid/cards", createDeckCardController);
+    app.get("/decks/:decksid", fetchDeckCardController);
+    app.delete("/decks/:decksid/cards/:index", deleteDeckCard);
 
-  app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
-  });
+    app.get("/", (req, res) => {
+      res.send("Hey, this is my API running 🥳");
+    });
+
+    app.listen(port, () => {
+      console.log(`Listening on port ${port}`);
+    });
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
 })();

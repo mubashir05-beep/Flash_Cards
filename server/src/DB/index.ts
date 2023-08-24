@@ -1,4 +1,4 @@
-import { MongoClient, MongoClientOptions } from 'mongodb';
+import { MongoClient, MongoClientOptions,ServerApiVersion } from 'mongodb';
 import { config } from "dotenv";
 
 config();
@@ -7,7 +7,7 @@ const URI = process.env.NEXT_PUBLIC_MONGODB_URI!;
 const DB_NAME = 'myFirstDatabase'; // Replace with your actual database name
 
 const client = new MongoClient(
-  URI, 
+  URI
 );
 
 console.log(`⚡️[App running]: Connecting to the database...`);
