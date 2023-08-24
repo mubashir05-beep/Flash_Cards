@@ -18,12 +18,8 @@ const app = express();
 
 app.use(express.json());
 
-const corsOptions = {
-  origin: "*", // Update with your allowed origins
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true,
-};
-app.use(cors(corsOptions));
+
+app.use(cors());
 
 app.get("/api/hello/", (req, res) => {
   res.json({
@@ -35,8 +31,6 @@ const port = process.env.NEXT_PUBLIC_PORT || 4000;
 
 (async () => {
   try {
-  
-    console.log("Connected to the database");
 
     // Set up routes after successful database connection
     app.delete("/decks/:decksid", deleteDeckController);
