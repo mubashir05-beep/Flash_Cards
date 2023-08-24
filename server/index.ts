@@ -19,7 +19,7 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-  origin: '*'
+  origin: 'https://flash-cards-phi.vercel.app'
 }));
 
 app.get("/api/hello/", (req, res) => {
