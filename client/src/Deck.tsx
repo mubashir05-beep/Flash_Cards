@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-
 import { useParams } from "react-router-dom";
 import { createCard } from "./api/createCard";
-
-import "./App.css";
 import { getData } from "./api/getDeck";
 import { deleteCard } from "./api/deleteCard";
+import "./App.css";
 
 interface FetchedData {
   _id: string;
@@ -31,11 +29,7 @@ function Deck() {
     try {
       setIsSending(true);
       await createCard(decksid!, text);
-      // Fetch deck cards after creating a new card
       setText("");
-      
-
-      
       setIsSending(false);
       await fetchDeckCards();
     } catch (error) {
@@ -49,7 +43,7 @@ function Deck() {
     const data = await getData(decksid!);
     setIsLoading(false);
     await setDecks([data]);
-   await setCards(data.cards); // Set the cards state to the fetched cards array
+    await setCards(data.cards);
   };
 
   const handleDeleteCard = async (index: number) => {
@@ -64,17 +58,18 @@ function Deck() {
 
   return (
     <div className="container">
-      <h1 className="title">Card Manager</h1>
-      <div className="card-container">
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : (
-          decks.map((deck) => (
-            <div key={deck._id} className="card">
-              <h3>{deck?.title}</h3>
-              <div className="card-list">
-                {cards.map((cardTitle, index) => (
-                  <div key={index} className="card">
+    <h1 className="title">Card Manager</h1>
+    <div className="card-container">
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        decks.map((deck) => (
+          <div key={deck._id} className="card">
+            <h3 className="card-title">{deck.title}</h3>
+            <div className="card-list">
+              {cards.map((cardTitle, index) => (
+                <div key={index} className="card">
+                  <div className="card-content">
                     {cardTitle}
                     <button
                       onClick={() => {
@@ -85,26 +80,27 @@ function Deck() {
                       Delete
                     </button>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
-          ))
-        )}
-      </div>
-      <form onSubmit={handleSubmit} className="form">
-        <input
-          type="text"
-          onChange={handleInputChange}
-          value={text}
-          className="input"
-          placeholder="Enter title"
-          required
-        />
-        <button type="submit" className="button" disabled={isSending}>
-          {isSending ? "Creating..." : "Create Card"}
-        </button>
-      </form>
+          </div>
+        ))
+      )}
     </div>
+    <form onSubmit={handleSubmit} className="form">
+      <input
+        type="text"
+        onChange={handleInputChange}
+        value={text}
+        className="input"
+        placeholder="Enter title"
+        required
+      />
+      <button type="submit" className="button" disabled={isSending}>
+        {isSending ? "Creating..." : "Create Card"}
+      </button>
+    </form>
+  </div>
   );
 }
 
