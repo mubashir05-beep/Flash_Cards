@@ -1,7 +1,6 @@
 import express from "express";
 import { config } from "dotenv";
 import cors from "cors";
-import { connectToDatabase, db } from "./src/DB";
 
 import { createDeckController } from "./src/controllers/createDeckController";
 import { deleteDeckController } from "./src/controllers/deleteDeckController";
@@ -9,8 +8,11 @@ import { fetchDeckController } from "./src/controllers/fetchDeckController";
 import { createDeckCardController } from "./src/controllers/createDeckCardController";
 import { fetchDeckCardController } from "./src/controllers/fetchDeckCardController";
 import { deleteDeckCard } from "./src/controllers/deleteDeckCard";
+import connectDB from "./connectMongo";
 
 config();
+
+connectDB();
 
 const app = express();
 
@@ -33,7 +35,7 @@ const port = process.env.NEXT_PUBLIC_PORT || 4000;
 
 (async () => {
   try {
-    await connectToDatabase();
+  
     console.log("Connected to the database");
 
     // Set up routes after successful database connection
